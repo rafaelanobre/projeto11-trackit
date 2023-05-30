@@ -27,7 +27,7 @@ const FormsDiv = styled.form`
     align-items: center;
 
     input{
-        margin: 5px;
+        margin: 3px;
         padding: 5px;
         width: 300px;
         height: 45px;
@@ -45,6 +45,7 @@ const FormsDiv = styled.form`
         width: 300px;
         height: 45px;
         background: #52B6FF;
+        margin-top: 3px;
         border-radius: 5px;
         border: none;
         font-size: 21px;
