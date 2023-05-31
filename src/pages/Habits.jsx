@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "./components/header";
+import Menu from "./components/menu";
 
 export default function Habits(){
     return(
@@ -12,6 +13,7 @@ export default function Habits(){
             <EmpyMessage>
                 Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
             </EmpyMessage>
+            <Menu />
         </HabitsPage>
     )
 }
@@ -20,6 +22,9 @@ const HabitsPage = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 70px;
+    background-color: #F2F2F2;
+    height: 100vh;
 `
 
 const CreateHabit = styled.div`

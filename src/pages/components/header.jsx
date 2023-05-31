@@ -18,6 +18,9 @@ const HeaderDiv = styled.div`
     background: #126BA5;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     h1{
         font-family: 'Playball', cursive;
