@@ -1,11 +1,16 @@
 import styled from "styled-components"
+import { UserContext } from "../../constants/usercontext";
+import { useContext } from "react";
 import profilepic from "../../assets/profilepic.png"
 
 export default function Header(){
+
+    const { userInfo } = useContext(UserContext);
+    
     return(
-        <HeaderDiv>
+        <HeaderDiv data-test="header">
             <h1>TrackIt</h1>
-            <img src={profilepic}></img>
+            <img src={userInfo.image} alt="User Profile Image" data-test="avatar"></img>
         </HeaderDiv>
     )
 }
@@ -31,6 +36,8 @@ const HeaderDiv = styled.div`
 
     img{
         width: 50px;
+        height: 50px;
         border-radius: 30px;
+        object-fit: cover;
     }
 `;
