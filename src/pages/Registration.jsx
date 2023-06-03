@@ -1,6 +1,7 @@
 import React from "react"
 import logo from "../assets/Group8.png"
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Registration(){
     return(
@@ -13,8 +14,8 @@ export default function Registration(){
             <input placeholder="foto" />
             <button type="submit">Cadastrar</button>
         </FormsDiv>
-        <Link>
-            <p>Já tem uma conta? Faça login!</p>
+        <Link to='/'>
+            <LinkText>Já tem uma conta? Faça login!</LinkText>
         </Link>
         </>
     )
@@ -63,8 +64,7 @@ const FormsDiv = styled.form`
         }
     }
 `;
-const Link = styled.div`
-    p{
+const LinkText = styled.p`
         font-weight: 400;
         font-size: 14px;
         text-align: center;
@@ -72,5 +72,4 @@ const Link = styled.div`
 
         color: #52B6FF;
         cursor: pointer;
-    }
 `;
