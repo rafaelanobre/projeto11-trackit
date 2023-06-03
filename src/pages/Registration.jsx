@@ -1,20 +1,67 @@
-import React from "react"
+import React, {useState} from "react"
 import logo from "../assets/Group8.png"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import axios from "axios";
+import { BASEURL } from "../constants/urls";
 
 export default function Registration(){
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [image, setImage] = useState("");
+
+    function registrar(e) {
+        e.preventDefault();
+        axios.post(`${BASEURL}/auth/sign-up`, {email:email, name:name, image:image, password: password})
+        .then(resp =>{
+            alert("Usuário criado com sucesso!")
+            Navigate(`/hoje`)})
+        .catch(error =>{
+            console.log(error.response.data.message)
+            alert(error.response.data.message)
+            })
+
+    }
     return(
         <>
         <Logo src={logo}></Logo>
-        <FormsDiv>
-            <input placeholder="email" />
-            <input placeholder="senha" />
-            <input placeholder="nome" />
-            <input placeholder="foto" />
-            <button type="submit">Cadastrar</button>
+        <FormsDiv onSubmit={registrar}>
+            <input
+                required
+                id="email"
+                type="email"
+                placeholder="email"
+                data-test="email-input"
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+                required
+                id="password"
+                type="password"
+                placeholder="senha"
+                data-test="password-input"
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+                required
+                id="nome"
+                type="text"
+                placeholder="nome"
+                data-test="user-name-input"
+                onChange={(e) => setName(e.target.value)}
+            />
+            <input
+                required
+                id="image"
+                type="url"
+                placeholder="foto"
+                data-test="user-image-input"
+                onChange={(e) => setImage(e.target.value)}
+            />
+            <button type="submit" data-test="signup-btn">Cadastrar</button>
         </FormsDiv>
-        <Link to='/'>
+        <Link to='/' data-test="login-link">
             <LinkText>Já tem uma conta? Faça login!</LinkText>
         </Link>
         </>

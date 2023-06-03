@@ -1,17 +1,29 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import logo from "../assets/Group8.png"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { BASEURL } from "../constants/urls";
+import { UserContext } from "../constants/usercontext"
 
 export default function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { userInfo, setUserInfo } = useContext(UserContext);
+    const navigate = useNavigate();
 
     function entrar(e){
-        const logininfo ={
-            email: email,
-            password: password
-        }
+        e.preventDefault();
+        axios.post(`${BASEURL}/auth/login`,{email: email,password: password} )
+        .then(resp =>{
+            console.log(resp)
+            setUserInfo(resp.data);
+            navigate(`/hoje`);
+        })
+        .catch(error =>{
+            console.log(error)
+            alert("Usuário ou senha inválida!")
+        })
     }
     return(
         <>
