@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "./components/header";
 import Menu from "./components/menu";
@@ -5,17 +6,20 @@ import HabitCreation from "./components/habitcreation";
 import Habit from "./components/habit";
 
 export default function Habits(){
+    const [habitCreationOn, setHabitCreationOn] = useState(false);
+    const [myHabits, setmyHabits] = useState([]);
+
     return(
         <HabitsPage>
             <Header />
             <CreateHabit>
                 <h2>Meus hábitos</h2>
-                <p>+</p>
+                <p onClick={ ()=> setHabitCreationOn(true)} data-test="habit-create-btn">+</p>
             </CreateHabit>
-            <HabitCreation />
-            <EmpyMessage>
+            { habitCreationOn && <HabitCreation setHabitCreationOn={setHabitCreationOn} setmyHabits={setmyHabits} data-test="habit-create-container" />}
+            { myHabits.length === 0 && <EmpyMessage>
                 Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-            </EmpyMessage>
+            </EmpyMessage>}
             <Habit />
             <Menu />
         </HabitsPage>
