@@ -1,13 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Header from "./components/header";
 import Menu from "./components/menu";
 import HabitCreation from "./components/habitcreation";
 import Habit from "./components/habit";
+import { UserContext } from "../constants/usercontext";
+import { BASEURL } from "../constants/urls";
+import axios from "axios";
 
 export default function Habits(){
     const [habitCreationOn, setHabitCreationOn] = useState(false);
-    const [myHabits, setmyHabits] = useState([]);
+    const [myHabits, setmyHabits] = useState(undefined);
+    const { userInfo } = useContext(UserContext);
+
+    const config = {
+        headers: {
+            Authorization:`Bearer ${userInfo.token}`
+        }
+    }
+
+    useEffect(() => {
+        axios.get(`${BASEURL}/habits`, config)
+        .then((resp) =>{
+            console.log(resp.data);
+            setmyHabits(resp.data);
+        })
+        .catch((error) =>{
+            console.log(error.response.data.message);
+            alert(error.response.data.message);
+        })
+    }, []);
+    if(myHabits === undefined){
+        return(
+            <>Carregando...</>
+        )
+    }
 
     return(
         <HabitsPage>
@@ -16,11 +43,18 @@ export default function Habits(){
                 <h2>Meus hábitos</h2>
                 <p onClick={ ()=> setHabitCreationOn(true)} data-test="habit-create-btn">+</p>
             </CreateHabit>
-            { habitCreationOn && <HabitCreation setHabitCreationOn={setHabitCreationOn} setmyHabits={setmyHabits} data-test="habit-create-container" />}
+            { habitCreationOn && <HabitCreation setHabitCreationOn={setHabitCreationOn} setmyHabits={setmyHabits} />}
             { myHabits.length === 0 && <EmpyMessage>
                 Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
             </EmpyMessage>}
-            <Habit />
+            {myHabits.map(habit => (
+                <Habit
+                    key={habit.id}
+                    id={habit.id}
+                    name={habit.name}
+                    days={habit.days}
+                />
+            ))}
             <Menu />
         </HabitsPage>
     )

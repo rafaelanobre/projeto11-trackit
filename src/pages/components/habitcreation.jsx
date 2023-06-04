@@ -22,7 +22,6 @@ export default function HabitCreation({setHabitCreationOn}){
     }
 
     function newHabit(e){
-
         e.preventDefault();
 
         if (habitDays.length === 0){
@@ -43,7 +42,6 @@ export default function HabitCreation({setHabitCreationOn}){
     
         axios.post(`${BASEURL}/habits`, habit, config)
         .then(resp =>{
-            alert("Deu certo")
             setHabitName("");
             setHabitDays([]);
             isVisible(false);
@@ -54,7 +52,7 @@ export default function HabitCreation({setHabitCreationOn}){
             })
     }
     return(
-        <CreationDiv onSubmit={newHabit}>
+        <CreationDiv onSubmit={newHabit} data-test="habit-create-container">
             <input
                 required
                 type="text"
@@ -132,7 +130,7 @@ const SelecionarDias = styled.div`
             background-color: #CFCFCF;
             border-color: #CFCFCF;
             color: #FFFFFF;
-    }
+        }
     }
 `
 const CreationButtons = styled.div`
