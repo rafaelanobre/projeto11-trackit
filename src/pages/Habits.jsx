@@ -53,6 +53,7 @@ export default function Habits(){
                     id={habit.id}
                     name={habit.name}
                     days={habit.days}
+                    setmyHabits={setmyHabits}
                 />
             ))}
             <Menu />
