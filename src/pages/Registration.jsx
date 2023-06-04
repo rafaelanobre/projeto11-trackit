@@ -16,12 +16,11 @@ export default function Registration(){
         axios.post(`${BASEURL}/auth/sign-up`, {email:email, name:name, image:image, password: password})
         .then(resp =>{
             alert("Usuário criado com sucesso!")
-            Navigate(`/hoje`)})
+            navigate(`/hoje`)})
         .catch(error =>{
             console.log(error.response.data.message)
             alert(error.response.data.message)
             })
-
     }
     return(
         <>

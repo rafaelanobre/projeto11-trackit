@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { UserContext } from "../../constants/usercontext";
 import { useContext } from "react";
-import profilepic from "../../assets/profilepic.png"
+import { Link } from "react-router-dom";
 
 export default function Header(){
 
@@ -9,7 +9,9 @@ export default function Header(){
     
     return(
         <HeaderDiv data-test="header">
-            <h1>TrackIt</h1>
+            <Link to='/'>
+                <h1>TrackIt</h1>
+            </Link>
             <img src={userInfo.image} alt="User Profile Image" data-test="avatar"></img>
         </HeaderDiv>
     )
@@ -32,6 +34,10 @@ const HeaderDiv = styled.div`
         font-family: 'Playball', cursive;
         color: #ffffff;
         font-size: 39px;
+    }
+
+    a{
+        text-decoration: none;
     }
 
     img{
