@@ -27,7 +27,7 @@ export default function Today(){
     }
 
     useEffect(() => {
-        axios.get(`${BASEURL}/today`, config)
+        axios.get(`${BASEURL}/habits/today`, config)
         .then((resp) =>{
             console.log(resp.data);
             setTodayHabits(resp.data);
