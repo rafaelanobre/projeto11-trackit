@@ -64,6 +64,7 @@ export default function Today(){
                     currentSequence={habit.currentSequence}
                     highestSequence={habit.highestSequence}
                     setCompletedHabits={setCompletedHabits}
+                    todayHabits={todayHabits}
                 />
             ))}
             <Menu />
