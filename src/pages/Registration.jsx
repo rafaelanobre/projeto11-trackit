@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import logo from "../assets/Group8.png"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
 import { BASEURL } from "../constants/urls";
 
