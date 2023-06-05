@@ -50,7 +50,7 @@ export default function Login(){
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
             />
-            <button type="submit" data-test="login-btn">
+            <button type="submit" data-test="login-btn" disabled={loading}>
             {loading ? (
                     <ThreeDots 
                     height="15" 

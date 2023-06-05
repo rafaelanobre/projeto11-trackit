@@ -66,7 +66,7 @@ export default function Registration(){
                 onChange={(e) => setImage(e.target.value)}
                 disabled={loading}
             />
-            <button type="submit" data-test="signup-btn">
+            <button type="submit" data-test="signup-btn" disabled={loading}>
             {loading ? (
                     <ThreeDots 
                     height="15" 

@@ -89,8 +89,8 @@ export default function HabitCreation({setHabitCreationOn, setmyHabits}){
             })}
             </SelecionarDias>
             <CreationButtons>
-                <p onClick={ ()=> setHabitCreationOn(false)} data-test="habit-create-cancel-btn">Cancelar</p>
-                <button type="submit" data-test="habit-create-save-btn">
+                <p onClick={ ()=> setHabitCreationOn(false)} data-test="habit-create-cancel-btn" disabled={loading}>Cancelar</p>
+                <button type="submit" data-test="habit-create-save-btn" disabled={loading}>
                 {loading ? (
                     <ThreeDots 
                         height="15" 
