@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import checkhabit from "../../assets/checkhabit.svg"
 
-export default function MyHabit(){
+export default function MyHabit({id,name,done,currentSequence,highestSequence,setCompletedHabits}){
     return(
-        <Habit>
-            <h3>Ler 1 capítulo de livro</h3>
-            <p>Sequência atual: 3 dias</p>
-            <p>Seu recorde: 5 dias</p>
-            <img src={checkhabit} alt="complete habit" />
+        <Habit data-test="today-habit-container">
+            <h3 data-test="today-habit-name">{name}</h3>
+            <p data-test="today-habit-sequence">Sequência atual: {currentSequence} dias</p>
+            <p data-test="today-habit-record">Seu recorde: {highestSequence} dias</p>
+            <img src={checkhabit} alt="complete habit" data-test="today-habit-check-btn" />
         </Habit>
     )
 }
