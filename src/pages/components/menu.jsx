@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 export default function Menu(){
     const {completedHabits} = useContext(UserContext);
-    const percentage = 25;
+    
     return(
         <Menudiv data-test="menu">
             <Link to='/habitos' data-test="habit-link">

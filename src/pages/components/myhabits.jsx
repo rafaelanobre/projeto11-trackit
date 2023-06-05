@@ -25,7 +25,7 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
             .then(() => {
                 setIsDone(false);
                 setCompletedHabitsCount(completedHabitsCount -1);
-                setCurrent(current > 0 ? current - 1 : 0);
+                setCurrent(current - 1);
                 setRecord(current === record ? record - 1 : record)
             })
             .catch((error) => {
