@@ -72,8 +72,9 @@ const TodayPage = styled.div`
     flex-direction: column;
     align-items: start;
     background-color: #F2F2F2;
-    height: 100vh;
+    min-height: 100vh;
     padding: 70px 15px 5px 15px;
+    padding-bottom: 140px;
 
     h2{
         font-size: 23px;

@@ -46,6 +46,7 @@ const Menudiv = styled.div`
     justify-content: space-between;
     background-color: #ffffff;
     padding: 5px 60px 5px 60px;
+    z-index: 9;
 
     p{
         color: #52B6FF;
