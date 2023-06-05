@@ -27,6 +27,10 @@ export default function HabitCreation({setHabitCreationOn, setmyHabits}){
             alert("Selecione os dias do hábito primeiro!");
             return;
         }
+        if (habitName === ""){
+            alert("Adicione um título ao seu hábito!");
+            return;
+        }
         const habit = {
             name: habitName,
             days: habitDays

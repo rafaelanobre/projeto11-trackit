@@ -54,7 +54,6 @@ export default function Today(){
             <h2 data-test="today">{capitalizedDate}</h2>
             {completedHabits === 0 && todayHabits.length !==0 && <p data-test="today-counter">Nenhum hábito concluído ainda</p>}
             {completedHabits !==0 && <p className='completed' data-test="today-counter">{completedHabits.toFixed()}% dos hábitos concluídos</p>}
-            {todayHabits.length === 0 && <p data-test="today-counter">Você ainda não tem hábitos para hoje, adicione alguns em <Link to='/habitos'>hábitos</Link></p>}
             {todayHabits.map(habit => (
                 <MyHabit
                     key={habit.id}
