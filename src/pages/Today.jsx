@@ -9,6 +9,7 @@ import { UserContext } from "../constants/usercontext";
 import { useContext } from "react";
 import { BASEURL } from '../constants/urls';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function Today(){
@@ -19,6 +20,7 @@ export default function Today(){
     const {setCompletedHabits} = useContext(UserContext);
     const { userInfo } = useContext(UserContext);
     const [todayHabits, setTodayHabits] = useState(undefined);
+    const navigate = useNavigate();
 
     const config = {
         headers: {
@@ -35,6 +37,7 @@ export default function Today(){
         .catch((error) =>{
             console.log(error.response.data.message);
             alert(error.response.data.message);
+            navigate('/');
         })
     }, []);
 
@@ -49,8 +52,9 @@ export default function Today(){
         <TodayPage>
             <Header />
             <h2 data-test="today">{capitalizedDate}</h2>
-            {completedHabits === 0 && <p data-test="today-counter">Nenhum hábito concluído ainda</p>}
+            {completedHabits === 0 && todayHabits.length !==0 && <p data-test="today-counter">Nenhum hábito concluído ainda</p>}
             {completedHabits !==0 && <p className='completed' data-test="today-counter">{completedHabits.toFixed()}% dos hábitos concluídos</p>}
+            {todayHabits.length === 0 && <p>Você ainda não tem hábitos para hoje, adicione alguns em <Link to='/habitos'>hábitos</Link></p>}
             {todayHabits.map(habit => (
                 <MyHabit
                     key={habit.id}

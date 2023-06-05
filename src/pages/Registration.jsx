@@ -10,6 +10,7 @@ export default function Registration(){
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
+    const navigate = useNavigate();
 
     function registrar(e) {
         e.preventDefault();

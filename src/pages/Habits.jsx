@@ -67,7 +67,8 @@ const HabitsPage = styled.div`
     align-items: center;
     padding-top: 70px;
     background-color: #F2F2F2;
-    height: 100vh;
+    min-height: 100vh;
+    padding-bottom: 140px;
 `
 
 const CreateHabit = styled.div`
