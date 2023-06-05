@@ -41,12 +41,6 @@ export default function Today(){
         })
     }, []);
 
-    useEffect(() => {
-        const percentage = (completedHabitsCount / habitsCount) * 100;
-        setCompletedHabits(percentage);
-    }, [completedHabitsCount]);
-
-
 
     if(todayHabits === undefined){
         return(
