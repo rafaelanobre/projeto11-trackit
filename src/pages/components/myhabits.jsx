@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import checkhabit from '../../assets/checkhabit.svg';
 import completedhabit from '../../assets/completedhabit.svg';
@@ -7,8 +7,11 @@ import { BASEURL } from '../../constants/urls';
 import { useContext } from 'react';
 import { UserContext } from '../../constants/usercontext';
 
-export default function MyHabit({id,name,done,currentSequence,highestSequence,setCompletedHabits,todayHabits}){
+export default function MyHabit({id,name,done,currentSequence,highestSequence,setCompletedHabits,todayHabits, completedHabitsCount, setCompletedHabitsCount}){
     const { userInfo } = useContext(UserContext);
+    const [isDone, setIsDone] = useState(done);
+    const [current, setCurrent] = useState(currentSequence);
+    const [record, setRecord] = useState(highestSequence);
 
     const config = {
         headers: {
@@ -17,10 +20,13 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
     };
 
     const handleToggleHabit = () => {
-        if (done) {
+        if (isDone) {
             axios.post(`${BASEURL}/habits/${id}/uncheck`, null, config)
             .then(() => {
-                setCompletedHabits((prevCompletedHabits) => ((prevCompletedHabits - 1) / prevCompletedHabits) * 100);
+                setIsDone(false);
+                setCompletedHabitsCount(completedHabitsCount -1);
+                setCurrent(current > 0 ? current - 1 : 0);
+                setRecord(current === record ? record - 1 : record)
             })
             .catch((error) => {
                 console.log(error.response.data.message);
@@ -29,7 +35,10 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
         } else {
             axios.post(`${BASEURL}/habits/${id}/check`, null, config)
             .then(() => {
-                setCompletedHabits((prevCompletedHabits) => ((prevCompletedHabits + 1) / prevCompletedHabits) * 100);
+                setIsDone(true);
+                setCompletedHabitsCount(completedHabitsCount +1);
+                setCurrent(current + 1);
+                setRecord(current === record ? record : current > record ? current : record)
             })
             .catch((error) => {
                 console.log(error.response.data.message);
@@ -43,18 +52,18 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
             <h3 data-test="today-habit-name">{name}</h3>
             <p
                 data-test="today-habit-sequence"
-                className={done === true ? 'record' : ''}
+                className={isDone ? 'record' : ''}
             >
-                Sequência atual: {currentSequence} dias
+                Sequência atual: {current} dias
             </p>
             <p
                 data-test="today-habit-record"
-                className={currentSequence === highestSequence && currentSequence > 0 ? 'record' : ''}
+                className={current > 0 && current === record ? 'record' : ''}
             >
-                Seu recorde: {highestSequence} dias
+                Seu recorde: {record} dias
             </p>
             <img
-                src={done ? completedhabit : checkhabit}
+                src={isDone ? completedhabit : checkhabit}
                 alt="complete habit"
                 onClick={handleToggleHabit}
                 data-test="today-habit-check-btn"

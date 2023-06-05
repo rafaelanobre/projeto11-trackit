@@ -11,9 +11,11 @@ import { UserContext } from './constants/usercontext'
 function App() {
   const [userInfo, setUserInfo] = useState('');
   const [completedHabits, setCompletedHabits] = useState(0);
+  const [habitsCount, setHabitsCount] = useState(0);
+  const [completedHabitsCount, setCompletedHabitsCount] = useState(0);
 
   return (
-    <UserContext.Provider value={{userInfo, setUserInfo, completedHabits, setCompletedHabits}}>
+    <UserContext.Provider value={{userInfo, setUserInfo, completedHabits, setCompletedHabits, habitsCount, setHabitsCount, completedHabitsCount, setCompletedHabitsCount}}>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/cadastro' element={<Registration />} />

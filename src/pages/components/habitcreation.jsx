@@ -23,14 +23,16 @@ export default function HabitCreation({setHabitCreationOn, setmyHabits}){
     function newHabit(e){
         e.preventDefault();
 
-        if (habitDays.length === 0){
-            alert("Selecione os dias do hábito primeiro!");
-            return;
-        }
         if (habitName === ""){
             alert("Adicione um título ao seu hábito!");
             return;
         }
+
+        if (habitDays.length === 0){
+            alert("Selecione os dias do hábito primeiro!");
+            return;
+        }
+        
         const habit = {
             name: habitName,
             days: habitDays
@@ -58,7 +60,6 @@ export default function HabitCreation({setHabitCreationOn, setmyHabits}){
     return(
         <CreationDiv onSubmit={newHabit} data-test="habit-create-container">
             <input
-                required
                 type="text"
                 id="habit-name"
                 value={habitName}
