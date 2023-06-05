@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
 import { BASEURL } from "../constants/urls";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Registration(){
     const [email, setEmail] = useState("");
@@ -11,15 +12,18 @@ export default function Registration(){
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     function registrar(e) {
         e.preventDefault();
+        setLoading(true);
         axios.post(`${BASEURL}/auth/sign-up`, {email:email, name:name, image:image, password: password})
         .then(resp =>{
+            setLoading(false);
             navigate(`/hoje`)})
         .catch(error =>{
-            console.log(error.response.data.message)
-            alert(error.response.data.message)
+            alert(error.response.data.message);
+            setLoading(false);
             })
     }
     return(
@@ -33,6 +37,7 @@ export default function Registration(){
                 placeholder="email"
                 data-test="email-input"
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
             />
             <input
                 required
@@ -41,6 +46,7 @@ export default function Registration(){
                 placeholder="senha"
                 data-test="password-input"
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
             />
             <input
                 required
@@ -49,6 +55,7 @@ export default function Registration(){
                 placeholder="nome"
                 data-test="user-name-input"
                 onChange={(e) => setName(e.target.value)}
+                disabled={loading}
             />
             <input
                 required
@@ -57,8 +64,24 @@ export default function Registration(){
                 placeholder="foto"
                 data-test="user-image-input"
                 onChange={(e) => setImage(e.target.value)}
+                disabled={loading}
             />
-            <button type="submit" data-test="signup-btn">Cadastrar</button>
+            <button type="submit" data-test="signup-btn">
+            {loading ? (
+                    <ThreeDots 
+                    height="15" 
+                    width="60" 
+                    radius="9"
+                    color="#FFFFFF" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                />
+            ) : (
+                "Cadastrar"
+            )}
+            </button>
         </FormsDiv>
         <Link to='/' data-test="login-link">
             <LinkText>Já tem uma conta? Faça login!</LinkText>
@@ -104,6 +127,9 @@ const FormsDiv = styled.form`
         font-size: 21px;
         color: #FFFFFF;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         :focus{
             outline: none;

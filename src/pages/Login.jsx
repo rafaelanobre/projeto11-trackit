@@ -5,24 +5,27 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASEURL } from "../constants/urls";
 import { UserContext } from "../constants/usercontext"
+import { ThreeDots } from "react-loader-spinner"
 
 export default function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { userInfo, setUserInfo } = useContext(UserContext);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     function entrar(e){
         e.preventDefault();
+        setLoading(true);
         axios.post(`${BASEURL}/auth/login`,{email: email,password: password} )
         .then(resp =>{
-            console.log(resp)
             setUserInfo(resp.data);
+            setLoading(false);
             navigate(`/hoje`);
         })
         .catch(error =>{
-            console.log(error)
             alert("Usuário ou senha inválida!")
+            setLoading(false);
         })
     }
     return(
@@ -36,6 +39,7 @@ export default function Login(){
                 placeholder="email"
                 data-test="email-input"
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
             />
             <input
                 required
@@ -44,8 +48,24 @@ export default function Login(){
                 placeholder="senha"
                 data-test="password-input"
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
             />
-            <button type="submit" data-test="login-btn">Entrar</button>
+            <button type="submit" data-test="login-btn">
+            {loading ? (
+                    <ThreeDots 
+                    height="15" 
+                    width="60" 
+                    radius="9"
+                    color="#FFFFFF" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                />
+            ) : (
+                "Entrar"
+            )}
+            </button>
         </FormsDiv>
         <Link to='/cadastro' data-test="signup-link">
             <LinkText>Não tem uma conta? Cadastre-se!</LinkText>
@@ -91,6 +111,9 @@ const FormsDiv = styled.form`
         font-size: 21px;
         color: #FFFFFF;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         :focus{
             outline: none;
