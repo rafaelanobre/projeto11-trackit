@@ -24,10 +24,7 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
             axios.post(`${BASEURL}/habits/${id}/uncheck`, null, config)
             .then(() => {
                 setIsDone(false);
-                setCompletedHabitsCount(prevCount => prevCount - 1, () => {
-                    const percentage = (completedHabitsCount / habitsCount) * 100;
-                    setCompletedHabits(percentage);
-                });
+                setCompletedHabitsCount(completedHabitsCount -1);
                 setCurrent(current - 1);
                 setRecord(current === record ? record - 1 : record)
             })
@@ -39,10 +36,7 @@ export default function MyHabit({id,name,done,currentSequence,highestSequence,se
             axios.post(`${BASEURL}/habits/${id}/check`, null, config)
             .then(() => {
                 setIsDone(true);
-                setCompletedHabitsCount(prevCount => prevCount + 1, () => {
-                    const percentage = (completedHabitsCount / habitsCount) * 100;
-                    setCompletedHabits(percentage);
-                });
+                setCompletedHabitsCount(completedHabitsCount +1);
                 setCurrent(current + 1);
                 setRecord(current === record ? record : current > record ? current : record)
             })

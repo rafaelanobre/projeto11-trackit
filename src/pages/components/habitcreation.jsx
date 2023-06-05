@@ -182,6 +182,9 @@ const CreationButtons = styled.div`
         background: #52B6FF;
         border-radius: 5px;
         border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         :focus{
             outline: none;
